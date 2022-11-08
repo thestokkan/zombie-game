@@ -1,0 +1,32 @@
+# RULES
+- Add a character that the player can move around with arrow keys
+- Add "zombies"
+- Try to make the zombies move after the player
+- When a zombie reaches the player (same position), it's game over
+
+# STRUCTURE
+- Game class≥
+  - Game loop: play until game over or quit
+- Player class
+  - fields
+    - symbol
+    - lives
+    - x
+    - y
+  - methods
+    - move
+    - getLives
+    - setLives
+    - getX
+    - getY
+    - setX
+    - setY
+- Zombie class
+  - fields
+    - symbol
+    - x
+    - y
+    - speed
+  - methods
+    - kill
+    - move
