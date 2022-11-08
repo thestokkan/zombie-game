@@ -28,9 +28,11 @@ public class Main {
     while (continueReadingInput) {
       KeyStroke keyStroke = null;
 
+      //TODO move to player class
+
       t.putCharacter(' ');
-      t.setCursorPosition(x, y);
-      t.putCharacter(player);
+      t.setCursorPosition(player.getX(), player.getY());
+      t.putCharacter(player.marker);
       t.flush();
 
       do {
