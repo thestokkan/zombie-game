@@ -1,0 +1,73 @@
+# Zombieland (game class)
+## Variable declarations
+**DECLARE** and initialize a timer.
+**DECLARE** and instantiate Player object.
+**DECLARE** ArrayList<Zombie> zombies to hold Zombie objects.
+
+## Method declarations
+**DECLARE** a _setUpGame()_ method to instantiate zombie objects with 
+positions and speed.
+**DECLARE** a _getRandomStartingPoint_ to get starting position for zombies.
+**DECLARE** a _startPlaying()_ method that takes input from the user to move 
+the player and release the zombies until the player is killed or quit.
+**DECLARE** a _checkIfKilled()_ method that checks if the player is killed 
+by calling each zombies' _killedPlayer()_ method. 
+**DECLARE** a _finishGame()_ method that prints a message about the users 
+performance.
+
+
+## Method implementations
+**METHOD: _void setUpGame()_**
+    **CREATE** three Zombie objects
+    **SET** speed for each Zombie object
+    **CALL** getRandomStartingPoint() to get starting position
+    **SET** position for each Zombie object
+    **ADD** Zombie objects to _zombies_ (ArrayList)
+
+Option: Choose difficulty level
+- Number of zombies
+- Zombie speed (constant for weighting)
+- method can take parameters or ask user for input
+
+END METHOD
+
+**METHOD: _int[] getRandomStartingPoint_**
+    Get random x and y coordinate
+    Should be a distance from player starting position (how far?)
+    - See point exercise to calculate distance between two points
+   **RETURN** x and y coordinates as int array. 
+END METHOD
+
+**METHOD: _void startPlaying()_**
+    **START** the timer
+    **REPEAT** while player.isAlive() is `true`
+        **GET** user input to move player marker.
+        **CALL** zombies' _move()_ methods
+        **
+    END REPEAT
+END METHOD
+
+**METHOD _boolean checkIfKilled()**
+    **REPEAT** for each zombie in zombies
+        **IF** the zombie's _killedPlayer()_ method returns true
+            **STOP** the timer
+            **SET** player.isAlive() to `false`
+        END IF
+    END REPEAT
+
+Option: Multiple lives
+- Decrement lives in loop
+- (player.isAlive returns `true` if lives > 0, `false` otherwise)
+
+END METHOD
+
+**METHOD _void finishGame()_**
+    **DISPLAY** "Game over" message, then
+    **IF** the player survived foe a long time
+        **DISPLAY** a congratulatory message along with the time.
+    **ELSE**
+        **DISPLAY** an insulting message along with the time.
+
+Option: Ask player to play again.
+
+END METHOD

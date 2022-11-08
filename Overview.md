@@ -5,9 +5,16 @@
 - When a zombie reaches the player (same position), it's game over
 
 # STRUCTURE
-- Game class≥
+- **ZombieLand**
+  - The game class
+  - Makes player and zombie objects
+  - Set up game
+  - Gets user input
   - Game loop: play until game over or quit
-- Player class
+    - Check if player is killed
+    - Finish game
+- **Player**
+  - Player class
   - fields
     - symbol
     - lives
@@ -15,18 +22,18 @@
     - y
   - methods
     - move
-    - getLives
-    - setLives
-    - getX
-    - getY
-    - setX
-    - setY
-- Zombie class
+      - controlled by player using arrow keys
+    - getters and setters
+- **Zombie**
+  - Zombie class
   - fields
     - symbol
     - x
     - y
     - speed
   - methods
-    - kill
+    - killedPlayer
+      - knows if it has same position as player
     - move
+      - try to catch player
+    - getters and setters
