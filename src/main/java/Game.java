@@ -10,8 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Game {
-  Player player = new Player(2, 30, 10);
-  ArrayList<Zombie> zombies = new ArrayList<>();
+    Player player = new Player(2, 30, 10);
+    ArrayList<Zombie> zombies = new ArrayList<>();
+    ArrayList<int[]> spawnFields = new ArrayList<>();
+    int moves = 0;
 
   DefaultTerminalFactory d = new DefaultTerminalFactory();
   Terminal t = d.createTerminal();
