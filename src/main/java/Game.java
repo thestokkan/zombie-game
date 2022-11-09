@@ -31,8 +31,11 @@ public class Game {
     game.finishGame();
   }
 
-    public void setUpGame() {
-        // TODO Set terminal size
+    public void setUpGame() throws IOException {
+        // Create spawn fields
+        spawnFields = createSpawnFields();
+
+        t.setCursorVisible(false);
         addZombie();
     }
 
