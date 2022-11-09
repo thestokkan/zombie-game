@@ -19,17 +19,17 @@ public class Game {
   TerminalPosition currentPosition;
   TerminalSize terminalSize = t.getTerminalSize();
 
-  public Game() throws IOException {
-  }
+    public Game() throws IOException {
 
-  public static void main(String[] args)
-          throws IOException, InterruptedException {
+    }
 
-    Game game = new Game();
-    game.setUpGame();
-    game.startPlaying();
-    game.finishGame();
-  }
+    public static void main(String[] args)
+            throws IOException, InterruptedException {
+        Game game = new Game();
+        game.setUpGame();
+        game.startPlaying();
+        game.finishGame();
+    }
 
     public void setUpGame() throws IOException {
         // Create spawn fields
@@ -57,7 +57,7 @@ public class Game {
     }
 
     public void addZombie() {
-        zombies.add(new Zombie(10, 10));
+        zombies.add(new Zombie(5, 5));
     }
 
     public void startPlaying() throws InterruptedException, IOException {
