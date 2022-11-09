@@ -15,9 +15,5 @@ public class Main {
     int terminalRows = terminalSize.getRows();
     int terminalCols = terminalSize.getColumns();
 
-
-
-
-
   }
 }
