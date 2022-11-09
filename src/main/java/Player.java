@@ -21,6 +21,7 @@ public class Player {
     this.prevY = y;
   }
 
+  public String getMarker() { return marker; }
   public int getLives() { return lives; }
   public void setLives(int lives) { this.lives = lives; }
   public int getX() { return x; }
