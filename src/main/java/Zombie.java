@@ -21,7 +21,11 @@ public class Zombie {
     return y;
   }
 
-//calculates where to move zombie
+  public char getSymbol() {
+    return symbol;
+  }
+
+  //calculates where to move zombie
   public void moveZombie(int playerX, int playerY) {
     int distanceX = x - playerX;
     int distanceY = y - playerY;
