@@ -33,7 +33,7 @@ public class Game {
                     terminal.putString(player.getMarker());
                 }
                 if (!player.isAlive()) {
-                    //TODO:  do something
+                    terminal.close();
                 }
             }
             counter++;
