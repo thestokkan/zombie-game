@@ -71,6 +71,7 @@ public class Game {
             int countTo50 =0;
         while (player.isAlive()) {
             //TODO hacky way to let player move twice
+            t.disableSGR(SGR.BLINK);
             player.movePlayer(t);
             player.movePlayer(t);
             for (Zombie z : zombies) {
@@ -80,8 +81,10 @@ public class Game {
                 t.setCursorPosition(z.getX(), z.getY());
                 t.putCharacter(z.getSymbol());
                 if (z.hasCaughtPlayer(z, player.getX(), player.getY())) {
+                    t.enableSGR(SGR.BLINK);
                     player.loseLife();
                     zombies.remove(z);
+                    t.flush();
                     if (zombies.isEmpty()) addZombie();
                     t.setCursorPosition(player.getX(), player.getY());
                     t.putString(player.getMarker());
@@ -103,6 +106,7 @@ public class Game {
 
             }
         }
+            t.disableSGR(SGR.BLINK);
     } // end startPlaying
 
     public void startScreen() throws IOException, InterruptedException {
