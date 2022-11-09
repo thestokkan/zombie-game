@@ -6,12 +6,10 @@ public class Zombie {
   private int x;
   private int y;
 
-  public Zombie( int x, int y) {
-    this.x = x;
-    this.y = y;
-
+  public Zombie(SpawnFields spawnField) {
+    this.x = spawnField.getX();
+    this.y = spawnField.getY();
   }
-
 
   public int getX() {
     return x;
