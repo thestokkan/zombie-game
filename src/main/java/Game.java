@@ -14,6 +14,11 @@ public class Game {
     public Game() throws IOException {
     }
 
+    public void setUpGame() {
+        // TODO Set terminal size
+        addZombie();
+    }
+
     public void addZombie() {
         zombies.add(new Zombie(10, 10));
     }
@@ -37,6 +42,6 @@ public class Game {
             }
             counter++;
         }
-    }
-}
+    } // end startPlaying
 
+} // end class
