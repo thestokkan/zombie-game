@@ -1,12 +1,9 @@
-import java.util.ArrayList;
-import com.googlecode.lanterna.Symbols;
-
 public class Zombie {
   private final char symbol = 'Z';
   private int x;
   private int y;
 
-  public Zombie(SpawnFields spawnField) {
+  public Zombie(SpawnField spawnField) {
     this.x = spawnField.getX();
     this.y = spawnField.getY();
   }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Game {
   Player player = new Player(2, 30, 10);
   ArrayList<Zombie> zombies = new ArrayList<>();
-  ArrayList<SpawnFields> spawnFields = new ArrayList<>();
+  ArrayList<SpawnField> spawnFields = new ArrayList<>();
   int moves = 0;
 
   DefaultTerminalFactory d = new DefaultTerminalFactory();
@@ -35,7 +35,7 @@ public class Game {
     t.setCursorVisible(false);
 
     // Activate first spawn field
-    SpawnFields startingField = spawnFields.get(0);
+    SpawnField startingField = spawnFields.get(0);
     startingField.setActive();
 
     addZombie();
@@ -45,34 +45,37 @@ public class Game {
   private void newSpawnField() throws IOException {
     boolean activateNewField = false;
     while (!activateNewField) {
-      int randIndex = (int) (Math.random() * 3);
+      int randIndex = (int) (Math.random() * (spawnFields.size() - 1));
       if (!spawnFields.get(randIndex).isActive()) {
         spawnFields.get(randIndex).setActive();
-        colorSpawnField(randIndex);
         activateNewField = true;
       }
     }
   }
 
-  public void colorSpawnField(int index) throws IOException {
-    SpawnFields field = spawnFields.get(index);
-    t.setCursorPosition(field.getX(), field.getY());
-    t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
-    t.flush();
+  public void colorSpawnField() throws IOException {
+    for (SpawnField field : spawnFields) {
+      if (field.isActive()) {
+        t.setCursorPosition(field.getX(), field.getY());
+        t.setForegroundColor(TextColor.ANSI.GREEN);
+        t.flush();
+      }
+    }
+
   }
 
-  private ArrayList<SpawnFields> createSpawnFields() throws IOException {
+  private ArrayList<SpawnField> createSpawnFields() throws IOException {
     int xMax = t.getTerminalSize().getColumns();
     int yMax = t.getTerminalSize().getRows();
 
-    SpawnFields topLeft = new SpawnFields(2, 2);
-    SpawnFields topRight = new SpawnFields(xMax - 2, 2);
-    SpawnFields bottomLeft = new SpawnFields(2, yMax - 2);
-    SpawnFields bottomRight = new SpawnFields(xMax - 2, yMax - 2);
-    SpawnFields bottomMiddle = new SpawnFields(xMax / 2, yMax - 2);
-    SpawnFields topMiddle = new SpawnFields(xMax / 2, 2);
-    SpawnFields rightMiddle = new SpawnFields(xMax - 2, yMax / 2);
-    SpawnFields leftMiddle = new SpawnFields(2, yMax / 2);
+    SpawnField topLeft = new SpawnField(2, 2);
+    SpawnField topRight = new SpawnField(xMax - 2, 2);
+    SpawnField bottomLeft = new SpawnField(2, yMax - 2);
+    SpawnField bottomRight = new SpawnField(xMax - 2, yMax - 2);
+    SpawnField bottomMiddle = new SpawnField(xMax / 2, yMax - 2);
+    SpawnField topMiddle = new SpawnField(xMax / 2, 2);
+    SpawnField rightMiddle = new SpawnField(xMax - 2, yMax / 2);
+    SpawnField leftMiddle = new SpawnField(2, yMax / 2);
 
     spawnFields.add(topLeft);
     spawnFields.add(topRight);
@@ -88,14 +91,14 @@ public class Game {
 
   public void addZombie() {
     // Get random active spawn field
-    SpawnFields field = null;
+    SpawnField field = null;
     while (field == null) {
       int random = (int) (Math.random() * 3);
       if (spawnFields.get(random).isActive()) {
         field = spawnFields.get(random);
       }
-      zombies.add(new Zombie(field));
     }
+    zombies.add(new Zombie(field));
   }
 
   public void startPlaying() throws InterruptedException, IOException {
@@ -104,6 +107,7 @@ public class Game {
       //TODO hacky way to let player move twice
       player.movePlayer(t);
       player.movePlayer(t);
+      colorSpawnField();
       for (Zombie z : zombies) {
         t.setCursorPosition(z.getX(), z.getY());
         t.putCharacter(' ');
@@ -129,8 +133,8 @@ public class Game {
 
       moves++;
       showStats(moves);
-      if (moves % 30 == 0) addZombie();
-      if (moves % 60 == 0) newSpawnField();
+      if (moves % 20 == 0) addZombie();
+      if (moves % 50 == 0) newSpawnField();
     }
   } // end startPlaying
 
