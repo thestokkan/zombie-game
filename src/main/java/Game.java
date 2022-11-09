@@ -1,8 +1,9 @@
 
-  import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
@@ -10,12 +11,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Game {
-    Player player = new Player(2, 30, 10);
+    Player player = new Player(3, 30, 10);
     ArrayList<Zombie> zombies = new ArrayList<>();
     ArrayList<int[]> spawnFields = new ArrayList<>();
     int moves = 0;
 
     DefaultTerminalFactory d = new DefaultTerminalFactory();
+
     Terminal t = d.createTerminal();
     TerminalPosition currentPosition;
 
@@ -26,20 +28,25 @@ public class Game {
     public static void main(String[] args)
             throws IOException, InterruptedException {
         Game game = new Game();
+        game.startScreen();
         game.setUpGame();
         game.startPlaying();
         game.finishGame();
+
     }
 
-    public void setUpGame() throws IOException {
+    public void setUpGame() throws IOException, InterruptedException {
         // Create spawn fields
-        /*spawnFields = createSpawnFields();*/
+        // spawnFields = createSpawnFields();
 
         t.setCursorVisible(false);
         addZombie();
+        showStats(moves);
     }
 
-   /* private ArrayList<SpawnFields> createSpawnFields() throws IOException {
+
+/*    private ArrayList<SpawnFields> createSpawnFields() throws IOException {
+
         int xMax = t.getTerminalSize().getColumns();
         int yMax = t.getTerminalSize().getRows();
 
@@ -77,7 +84,7 @@ public class Game {
                     zombies.remove(z);
                     if (zombies.isEmpty()) addZombie();
                     t.setCursorPosition(player.getX(), player.getY());
-                    t.putCharacter(player.getMarker());
+                    t.putString(player.getMarker());
                 }
                 if (!player.isAlive()) {
                     break;
@@ -88,40 +95,80 @@ public class Game {
                 }
             }
             moves++;
-            countTo50++;
-            if (countTo50>=50){
+
+            showStats(moves);
+            if (moves % 50 == 0){
                 addZombie();
-                countTo50 =10;
+
             }
         }
     } // end startPlaying
 
-
+    public void startScreen() throws IOException, InterruptedException {
+        t.setCursorPosition(35, 10);
+        t.setForegroundColor(TextColor.ANSI.BLUE_BRIGHT);
+        char[] teamNameString = new char[]{'V', ' ', 'O', ' ', 'I', ' ', 'D' };
+        for (char c : teamNameString) {
+            t.putCharacter(c);
+            Thread.sleep(200);
+            t.flush();
+        }
+        Thread.sleep(2000);
+        t.setCursorPosition(34, 12);
+        t.setForegroundColor(TextColor.ANSI.WHITE);
+        t.putString("presents");
+        t.flush();
+        Thread.sleep(2500);
+        t.clearScreen();
+        t.setCursorPosition(31, 10);
+        t.setForegroundColor(TextColor.ANSI.MAGENTA_BRIGHT);
+        t.putString("Z O M B I E   L A N D ");
+        t.flush();
+        Thread.sleep(3000);
+        t.clearScreen();
+    }
     public void finishGame() throws IOException, InterruptedException {
         t.clearScreen();
-        t.setCursorPosition(t.getTerminalSize().getRows() / 2, t.getTerminalSize().getColumns() / 2);
-        t.enableSGR(SGR.BLINK);
+        t.setCursorPosition(30, 10);
         t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
-        t.putString("GAME OVER!");
-        t.flush();
-        Thread.sleep(2000);
+        char[] gameOverArr = new char[]{'G', ' ', 'A', ' ', 'M', ' ', 'E', ' ', ' ', 'O', ' ', 'V', ' ', 'E', ' ', 'R', ' ', '!'};
+        for (char c : gameOverArr) {
+            t.putCharacter(c);
+            Thread.sleep(200);
+            t.flush();
+        }
+        t.enableSGR(SGR.BLINK);
         t.clearScreen();
+        t.setCursorPosition(31,10);
+        t.putString("G A M E  O V E R !");
+        t.flush();
+        Thread.sleep(3000);
         t.disableSGR(SGR.BLINK);
-        t.setCursorPosition(t.getTerminalSize().getRows() / 2, t.getTerminalSize().getColumns() / 2);
-        if (moves > 20) {
+        t.setCursorPosition(29, 13);
+        t.setForegroundColor(TextColor.ANSI.YELLOW_BRIGHT);
+        if (moves > 50){
             t.putString("WELL DONE, YOU MANAGED " + moves + " MOVES!");
         } else {
-            t.putString("You only got " + moves + " steps...\nYOU'RE REALLY BAD AT THIS GAME!");
+            t.putString("YOU ONLY MANAGED " + moves + " MOVES");
+            t.setCursorPosition(25, 15);
+            t.putString("YOU'RE REALLY BAD AT THIS GAME!");
         }
-    } // end finishGame
+        t.flush();
+    }
 
     public void showStats(int moves) throws IOException, InterruptedException {
-        t.setCursorPosition(1,1);
-        t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
-        t.putString("Lives: " + player.getLives());
-        t.setCursorPosition(1,10);
-        t.putString(("No. Of Moves: " + moves));
-        t.flush();
+        String hearts = player.getLives()+ "";
 
+        t.setCursorPosition(2, 1);
+        t.setForegroundColor(TextColor.ANSI.WHITE_BRIGHT);
+        t.putString("Lives: ");
+        t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
+        t.putString(hearts);
+        t.setCursorPosition(20,1);
+        t.setForegroundColor(TextColor.ANSI.WHITE_BRIGHT);
+        t.putString("Moves: ");
+        t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
+        t.putString(moves + "");
+        t.setForegroundColor(TextColor.ANSI.WHITE);
     }
 } // end class
