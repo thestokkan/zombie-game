@@ -58,10 +58,8 @@ public class Game {
       if (field.isActive()) {
         t.setCursorPosition(field.getX(), field.getY());
         t.setForegroundColor(TextColor.ANSI.GREEN);
-        t.flush();
       }
     }
-
   }
 
   private ArrayList<SpawnField> createSpawnFields() throws IOException {
@@ -124,6 +122,7 @@ public class Game {
           if (zombies.isEmpty()) addZombie();
           t.setCursorPosition(player.getX(), player.getY());
           t.putString(player.getMarker());
+          break;
         }
         if (!player.isAlive()) {
           break;
