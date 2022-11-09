@@ -79,8 +79,17 @@ public class Game {
                 if (!player.isAlive()) {
                     break;
                 }
-            counter++;
-          }
+                //TODO stop program if window is closed...should probably not be here ->eventlistener?
+                /*if (t == null) {
+                    System.out.println("Exiting....");
+                    break;
+                }*/
+            }
+            moves++;
+            if (moves>50){
+                addZombie();
+                moves-=moves;
+            }
         }
     } // end startPlaying
 
