@@ -79,7 +79,7 @@ public class Game {
                     zombies.remove(z);
                     if (zombies.isEmpty()) addZombie();
                     t.setCursorPosition(player.getX(), player.getY());
-                    t.putCharacter(player.getMarker());
+                    t.putString(player.getMarker());
                 }
                 if (!player.isAlive()) {
                     break;
@@ -144,7 +144,7 @@ public class Game {
             t.putString("WELL DONE, YOU MANAGED " + moves + " MOVES!");
         } else {
             t.putString("YOU ONLY MANAGED " + moves + " MOVES");
-            t.setCursorPosition(22, 15);
+            t.setCursorPosition(25, 15);
             t.putString("YOU'RE REALLY BAD AT THIS GAME!");
         }
         t.flush();
