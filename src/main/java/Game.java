@@ -39,6 +39,23 @@ public class Game {
         addZombie();
     }
 
+    private ArrayList<SpawnFields> createSpawnFields() throws IOException {
+        int xMax = t.getTerminalSize().getColumns();
+        int yMax = t.getTerminalSize().getRows();
+
+        SpawnFields topLeft = new SpawnFields(2, 12);
+        SpawnFields topRight = new SpawnFields(xMax - 2, 12);
+        SpawnFields bottomLeft = new SpawnFields(2, yMax - 2);
+        SpawnFields bottomRight = new SpawnFields(xMax -2, yMax - 2);
+
+        spawnFields.add(topLeft);
+        spawnFields.add(topRight);
+        spawnFields.add(bottomLeft);
+        spawnFields.add(bottomRight);
+
+        return spawnFields;
+    }
+
     public void addZombie() {
         zombies.add(new Zombie(10, 10));
     }
