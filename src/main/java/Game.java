@@ -63,17 +63,17 @@ public class Game {
     public void startPlaying() throws InterruptedException, IOException {
         while (player.isAlive()) {
             player.movePlayer(t);
-          for (Zombie z : zombies) {
-            t.setCursorPosition(z.getX(),z.getY());
-            t.putCharacter(' ');
-            z.moveZombie(player.getX(), player.getY());
-            t.setCursorPosition(z.getX(),z.getY());
-            t.putCharacter(z.getSymbol());
-            if (z.hasCaughtPlayer(z, player.getX(), player.getY())) {
-              player.loseLife();
-              zombies.remove(z);
-              if (zombies == null) addZombie();
-              t.setCursorPosition(player.getX(), player.getY());
+            for (Zombie z : zombies) {
+                t.setCursorPosition(z.getX(), z.getY());
+                t.putCharacter(' ');
+                z.moveZombie(player.getX(), player.getY());
+                t.setCursorPosition(z.getX(), z.getY());
+                t.putCharacter(z.getSymbol());
+                if (z.hasCaughtPlayer(z, player.getX(), player.getY())) {
+                    player.loseLife();
+                    zombies.remove(z);
+                    if (zombies.isEmpty()) addZombie();
+                    t.setCursorPosition(player.getX(), player.getY());
                     t.putCharacter(player.getMarker());
                 }
                 if (!player.isAlive()) {
