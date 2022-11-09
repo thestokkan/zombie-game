@@ -34,8 +34,8 @@ public class Player {
   public int getPrevY() { return prevY; }
 
 
-  public Character movePlayer(Terminal t) throws InterruptedException, IOException {
-    KeyStroke keyStroke = null;
+  public void movePlayer(Terminal t) throws InterruptedException, IOException {
+    KeyStroke keyStroke;
 
     t.setCursorPosition(getX(), getY());
     t.putCharacter(marker);
@@ -66,8 +66,6 @@ public class Player {
     t.setCursorPosition(prevX, prevY);
     t.putCharacter(' ');
     t.flush();
-
-    return c;
   }
 
   public boolean isAlive() {
