@@ -1,10 +1,10 @@
 
-  import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
-  import com.googlecode.lanterna.graphics.TextGraphics;
-  import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
@@ -37,14 +37,16 @@ public class Game {
 
     public void setUpGame() throws IOException, InterruptedException {
         // Create spawn fields
-//        spawnFields = createSpawnFields();
+        // spawnFields = createSpawnFields();
 
         t.setCursorVisible(false);
         addZombie();
         showStats(moves);
     }
 
+
 /*    private ArrayList<SpawnFields> createSpawnFields() throws IOException {
+
         int xMax = t.getTerminalSize().getColumns();
         int yMax = t.getTerminalSize().getRows();
 
@@ -66,7 +68,10 @@ public class Game {
     }
 
     public void startPlaying() throws InterruptedException, IOException {
+            int countTo50 =0;
         while (player.isAlive()) {
+            //TODO hacky way to let player move twice
+            player.movePlayer(t);
             player.movePlayer(t);
             for (Zombie z : zombies) {
                 t.setCursorPosition(z.getX(), z.getY());
@@ -85,15 +90,16 @@ public class Game {
                     break;
                 }
                 //TODO stop program if window is closed...should probably not be here ->eventlistener?
-                /*if (t == null) {
+                if (t == null) {
                     System.out.println("Exiting....");
-                    break;
-                }*/
+                }
             }
             moves++;
+
             showStats(moves);
             if (moves % 50 == 0){
                 addZombie();
+
             }
         }
     } // end startPlaying
