@@ -14,6 +14,8 @@ public class Main {
     TerminalSize terminalSize = t.getTerminalSize();
     int terminalRows = terminalSize.getRows();
     int terminalCols = terminalSize.getColumns();
+    Game game = new Game(t);
+    game.startPlaying();
 
 
 
