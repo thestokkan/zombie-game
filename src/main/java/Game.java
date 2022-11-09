@@ -33,13 +33,13 @@ public class Game {
 
     public void setUpGame() throws IOException {
         // Create spawn fields
-        spawnFields = createSpawnFields();
+        /*spawnFields = createSpawnFields();*/
 
         t.setCursorVisible(false);
         addZombie();
     }
 
-    private ArrayList<SpawnFields> createSpawnFields() throws IOException {
+   /* private ArrayList<SpawnFields> createSpawnFields() throws IOException {
         int xMax = t.getTerminalSize().getColumns();
         int yMax = t.getTerminalSize().getRows();
 
@@ -54,14 +54,17 @@ public class Game {
         spawnFields.add(bottomRight);
 
         return spawnFields;
-    }
+    }*/
 
     public void addZombie() {
         zombies.add(new Zombie(5, 5));
     }
 
     public void startPlaying() throws InterruptedException, IOException {
+            int countTo50 =0;
         while (player.isAlive()) {
+            //TODO hacky way to let player move twice
+            player.movePlayer(t);
             player.movePlayer(t);
             for (Zombie z : zombies) {
                 t.setCursorPosition(z.getX(), z.getY());
@@ -80,15 +83,15 @@ public class Game {
                     break;
                 }
                 //TODO stop program if window is closed...should probably not be here ->eventlistener?
-                /*if (t == null) {
+                if (t == null) {
                     System.out.println("Exiting....");
-                    break;
-                }*/
+                }
             }
             moves++;
-            if (moves>50){
+            countTo50++;
+            if (countTo50>=50){
                 addZombie();
-                moves-=moves;
+                countTo50 =10;
             }
         }
     } // end startPlaying
