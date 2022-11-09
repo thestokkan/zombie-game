@@ -15,10 +15,9 @@ public class Game {
     ArrayList<int[]> spawnFields = new ArrayList<>();
     int moves = 0;
 
-  DefaultTerminalFactory d = new DefaultTerminalFactory();
-  Terminal t = d.createTerminal();
-  TerminalPosition currentPosition;
-  TerminalSize terminalSize = t.getTerminalSize();
+    DefaultTerminalFactory d = new DefaultTerminalFactory();
+    Terminal t = d.createTerminal();
+    TerminalPosition currentPosition;
 
     public Game() throws IOException {
 
