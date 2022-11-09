@@ -106,7 +106,11 @@ public class Game {
     while (player.isAlive()) {
       //TODO hacky way to let player move twice
       player.movePlayer(t);
+      moves++;
+      showStats(moves);
       player.movePlayer(t);
+      moves++;
+      showStats(moves);
       colorSpawnField();
       for (Zombie z : zombies) {
         t.setCursorPosition(z.getX(), z.getY());
@@ -130,10 +134,7 @@ public class Game {
           System.out.println("Exiting....");
         }
       }
-
-      moves++;
-      showStats(moves);
-      if (moves % 20 == 0) addZombie();
+      if (moves % 30 == 0) addZombie();
       if (moves % 50 == 0) newSpawnField();
     }
   } // end startPlaying
