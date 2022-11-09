@@ -5,13 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Game {
-    //FIXME added terminal for testing purposes
-    DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
-    Terminal terminal = defaultTerminalFactory.createTerminal();
+    Terminal terminal;
     Player player = new Player(2, 30, 10);
     ArrayList<Zombie> zombies = new ArrayList<>();
 
-    public Game() throws IOException {
+    public Game(Terminal terminal) throws IOException {
+        this.terminal = terminal;
     }
 
     public void addZombie() {
