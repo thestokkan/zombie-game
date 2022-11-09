@@ -1,0 +1,26 @@
+## Variable declarations
+Char symbol = 😥 (😃😩😵)
+int lives
+int x
+int y
+
+## METHOD DECLARATIONS
+DECLARE move()
+DECLARE isAlive()
+DECLARE loseLife()
+DECLARE getX()
+DECLARE getY()
+
+## METHOD IMPLEMENTATIONS
+
+METHOD void move()
+    // lots of code
+END METHOD
+
+METHOD void loseLife()
+    lives--
+END METHOD
+
+METHOD boolean isAlive()
+    return lives > 0
+END METHOD
