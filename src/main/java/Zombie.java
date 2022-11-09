@@ -26,30 +26,23 @@ public class Zombie {
     int distanceY = y - playerY;
     //check distance regardless of position
     if(Math.abs(distanceX) == Math.abs(distanceY)){
-      x= distanceX>0? x-1 : x +1;
+      x= distanceX > 0 ? (x -1) : (x + 1);
     }
     if ( Math.abs(distanceX) > Math.abs(distanceY)) {
       //check is x/y is pos or neg and move accordingly
-      x = distanceX>=0 ? x- 1 : x + 1;
+      x = distanceX >= 0 ? (x - 1) : (x + 1);
     } else{
-      y = distanceY>=0?y-1:y+1;
+      y = distanceY >= 0 ? (y - 1) : (y + 1);
     }
     //Add random movement to separate double trouble
-    if ((Math.random()*100>85)){
-      y+=1;
+    if ((Math.random() * 100 > 85)){
+      y += 1;
     }
   }
   public boolean hasCaughtPlayer(Zombie zombie, int playerX, int playerY){
-    if (x ==playerX && y == playerY){
+    if (x == playerX && y == playerY){
       return true;
     }
     return false;
   }
-
-  //TODO move to main
-
-  /*ArrayList<Zombie> zombieArray = new ArrayList<>();
-  public static void addZombie(){
-    zombieArray.add(new Zombie(10,10));
-  }*/
 }
