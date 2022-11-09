@@ -24,6 +24,8 @@ public class Game {
             player.movePlayer(terminal);
             for (Zombie z : zombies) {
                 z.moveZombie(player.getX(), player.getY());
+                terminal.setCursorPosition(z.getX(),z.getY());
+                terminal.putCharacter(z.getSymbol());
                 if (z.hasCaughtPlayer(z, player.getX(), player.getY())) {
                     player.loseLife();
                     zombies.remove(z);
