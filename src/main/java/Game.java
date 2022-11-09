@@ -30,7 +30,7 @@ public class Game {
                     player.loseLife();
                     zombies.remove(z);
                     terminal.setCursorPosition(player.getX(), player.getY());
-                    terminal.putCharacter(player.getMarker());
+                    terminal.putString(player.getMarker());
                 }
                 if (!player.isAlive()) {
                     //TODO:  do something
