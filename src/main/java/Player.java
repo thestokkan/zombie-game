@@ -5,7 +5,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
 
 public class Player {
-  final String marker = "\uD83D\uDE03";
+  final Character marker = 'P';
   private int lives;
   private int x;
   private int y;
@@ -21,7 +21,7 @@ public class Player {
     this.prevY = y;
   }
 
-  public String getMarker() { return marker; }
+  public Character getMarker() { return marker; }
   public int getLives() { return lives; }
   public void setLives(int lives) { this.lives = lives; }
   public int getX() { return x; }
@@ -38,7 +38,7 @@ public class Player {
     KeyStroke keyStroke = null;
 
     t.setCursorPosition(getX(), getY());
-    t.putString(marker);
+    t.putCharacter(marker);
     t.flush();
     setPrevX(getX());
     setPrevY(getY());
