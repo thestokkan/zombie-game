@@ -41,9 +41,7 @@ public class Game {
     }
 
     public void startPlaying() throws InterruptedException, IOException {
-        int counter = 0;
-        addZombie();
-        while (true) {
+        while (player.isAlive()) {
             player.movePlayer(t);
           for (Zombie z : zombies) {
             t.setCursorPosition(z.getX(),z.getY());
