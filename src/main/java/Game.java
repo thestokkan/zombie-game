@@ -99,44 +99,52 @@ public class Game {
     } // end startPlaying
 
     public void startScreen() throws IOException, InterruptedException {
-        t.setCursorPosition(30, 10);
+        t.setCursorPosition(35, 10);
         t.setForegroundColor(TextColor.ANSI.BLUE_BRIGHT);
-        t.enableSGR(SGR.FRAKTUR);
         char[] teamNameString = new char[]{'V', ' ', 'O', ' ', 'I', ' ', 'D' };
-        int repeat = 1;
-        while (repeat < 4){
-            for (char c : teamNameString){
-                t.putCharacter(c);
-                Thread.sleep(200);
-                t.flush();
-            }
-            Thread.sleep(1000);
-            t.clearScreen();
-            t.setCursorPosition(30,10);
-            repeat++;
+        for (char c : teamNameString) {
+            t.putCharacter(c);
+            Thread.sleep(200);
+            t.flush();
         }
-
-     }
+        Thread.sleep(2000);
+        t.setCursorPosition(34, 12);
+        t.setForegroundColor(TextColor.ANSI.WHITE);
+        t.putString("presents");
+        t.flush();
+        Thread.sleep(2500);
+        t.clearScreen();
+        t.setCursorPosition(31, 10);
+        t.setForegroundColor(TextColor.ANSI.MAGENTA_BRIGHT);
+        t.putString("Z O M B I E   L A N D ");
+        t.flush();
+        Thread.sleep(3000);
+        t.clearScreen();
+    }
     public void finishGame() throws IOException, InterruptedException {
         t.clearScreen();
         t.setCursorPosition(30, 10);
         t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
-        t.enableSGR(SGR.BLINK);
         char[] gameOverArr = new char[]{'G', ' ', 'A', ' ', 'M', ' ', 'E', ' ', ' ', 'O', ' ', 'V', ' ', 'E', ' ', 'R', ' ', '!'};
         for (char c : gameOverArr) {
             t.putCharacter(c);
             Thread.sleep(200);
             t.flush();
         }
+        t.enableSGR(SGR.BLINK);
+        t.clearScreen();
+        t.setCursorPosition(31,10);
+        t.putString("G A M E  O V E R !");
+        t.flush();
         Thread.sleep(3000);
         t.disableSGR(SGR.BLINK);
-        t.setCursorPosition(25, 12);
-        t.setForegroundColor(TextColor.ANSI.WHITE);
+        t.setCursorPosition(29, 13);
+        t.setForegroundColor(TextColor.ANSI.YELLOW_BRIGHT);
         if (moves > 50){
             t.putString("WELL DONE, YOU MANAGED " + moves + " MOVES!");
         } else {
             t.putString("YOU ONLY MANAGED " + moves + " MOVES");
-            t.setCursorPosition(20, 13);
+            t.setCursorPosition(22, 15);
             t.putString("YOU'RE REALLY BAD AT THIS GAME!");
         }
         t.flush();
