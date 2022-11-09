@@ -35,10 +35,30 @@ public class Game {
 
     t.setCursorVisible(false);
 
-    // Activate spawn field
+    // Activate first spawn field
     SpawnFields startingField = spawnFields.get(0);
     startingField.setActive();
+
     addZombie();
+  }
+
+  private void newSpawnField() throws IOException {
+    boolean activateNewField = false;
+    while (!activateNewField) {
+      int randIndex = (int) (Math.random() * 3);
+      if (!spawnFields.get(randIndex).isActive()) {
+        spawnFields.get(randIndex).setActive();
+        colorSpawnField(randIndex);
+        activateNewField = true;
+      }
+    }
+  }
+
+  public void colorSpawnField(int index) throws IOException {
+    SpawnFields field = spawnFields.get(index);
+    t.setCursorPosition(field.getX(), field.getY());
+    t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
+    t.flush();
   }
 
   private ArrayList<SpawnFields> createSpawnFields() throws IOException {
@@ -49,20 +69,21 @@ public class Game {
     SpawnFields topRight = new SpawnFields(xMax - 2, 2);
     SpawnFields bottomLeft = new SpawnFields(2, yMax - 2);
     SpawnFields bottomRight = new SpawnFields(xMax - 2, yMax - 2);
+    SpawnFields bottomMiddle = new SpawnFields(xMax / 2, yMax - 2);
+    SpawnFields topMiddle = new SpawnFields(xMax / 2, 2);
+    SpawnFields rightMiddle = new SpawnFields(xMax - 2, yMax / 2);
+    SpawnFields leftMiddle = new SpawnFields( 2, yMax / 2);
 
     spawnFields.add(topLeft);
     spawnFields.add(topRight);
     spawnFields.add(bottomLeft);
     spawnFields.add(bottomRight);
+    spawnFields.add(bottomMiddle);
+    spawnFields.add(topMiddle);
+    spawnFields.add(rightMiddle);
+    spawnFields.add(leftMiddle);
 
     return spawnFields;
-  }
-
-  public void colorSpawnField(int index) throws IOException {
-    SpawnFields field = spawnFields.get(index);
-    t.setCursorPosition(field.getX(), field.getY());
-    t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
-    t.flush();
   }
 
   public void addZombie() {
@@ -104,10 +125,16 @@ public class Game {
                 }*/
       }
       moves++;
-      if (moves > 50) {
-        addZombie();
-        moves -= moves;
+      // Activate another spawn field
+      if (moves % 10 == 0) {
+        newSpawnField();
       }
+
+      if (moves % 10 == 0) {
+        addZombie();
+//        moves -= moves;
+      }
+
     }
   } // end startPlaying
 
