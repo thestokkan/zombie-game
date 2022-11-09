@@ -1,16 +1,17 @@
+import java.util.ArrayList;
+import com.googlecode.lanterna.Symbols;
+
 public class Zombie {
-  private int speed;
+  private final char symbol = 'Z';
   private int x;
   private int y;
 
-  public Zombie(int speed, int x, int y) {
+  public Zombie( int x, int y) {
     this.x = x;
     this.y = y;
-    this.speed = speed;
+
   }
-  public void setSpeed(int speed) {
-    this.speed = speed;
-  }
+
 
   public int getX() {
     return x;
@@ -18,13 +19,6 @@ public class Zombie {
 
   public int getY() {
     return y;
-  }
-  public void setX(int x) {
-    this.x = x;
-  }
-
-  public void setY(int y) {
-    this.y = y;
   }
 
   // - Get player position -> send player position through moveZombie method
@@ -42,4 +36,17 @@ public class Zombie {
       y = distanceY>0?y-1:y+1;
     }
   }
+  public boolean hasCaughtPlayer(Zombie zombie, int playerX, int playerY){
+    if (x ==playerX && y == playerY){
+      return true;
+    }
+    return false;
+  }
+
+  //TODO move to main
+
+  /*ArrayList<Zombie> zombieArray = new ArrayList<>();
+  public static void addZombie(){
+    zombieArray.add(new Zombie(10,10));
+  }*/
 }
