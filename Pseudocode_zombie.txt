@@ -1,0 +1,27 @@
+## Variable declarations
+Char symbol = 🧟‍
+int x
+int y
+
+## METHOD DECLARATIONS
+DECLARE move()
+DECLARE getX()
+DECLARE getY()
+
+## METHOD IMPLEMENTATIONS
+
+METHOD constructor(x, y)
+    SET x
+    SET y
+END METHOD
+
+METHOD void move()
+  // lots of code (Maren)
+END METHOD
+
+**METHOD _boolean hasCaughtPlayer(zombie)_**
+        IF zombie position EQUALS player position
+            RETURN true
+        END IF
+    RETURN false
+END METHOD

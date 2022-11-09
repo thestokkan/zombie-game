@@ -18,52 +18,55 @@ performance.
 
 ## Method implementations
 **METHOD: _void setUpGame()_**
-    **CREATE** three Zombie objects
-    **SET** speed for each Zombie object
-    **CALL** getRandomStartingPoint() to get starting position
-    **SET** position for each Zombie object
+    **SET** terminal size
+    **CALL** mobs.getZombieList() to get ArrayList of zombies
     **ADD** Zombie objects to _zombies_ (ArrayList)
 
-Option: Choose difficulty level
-- Number of zombies
-- Zombie speed (constant for weighting)
-- method can take parameters or ask user for input
+Options:
+- Choose/increase difficulty level
+    - Number of zombies
+    - Zombie speed (constant for weighting)
+    - method can take parameters or ask user for input
+- Add obstacles
 
 END METHOD
 
-**METHOD: _int[] getRandomStartingPoint_**
-    Get random x and y coordinate
-    Should be a distance from player starting position (how far?)
-    - See point exercise to calculate distance between two points
-   **RETURN** x and y coordinates as int array. 
-END METHOD
 
 **METHOD: _void startPlaying()_**
-    **START** the timer
-    **REPEAT** while player.isAlive() is `true`
+    **DECLARE** counter
+        **CALL** addZombie()
+    **REPEAT**
         **GET** user input to move player marker.
-        **CALL** zombies' _move()_ methods
-        **
+
+        **REPEAT**
+            **CALL** each zombies' _move()_ methods.
+
+            **IF** zombie.hasCaughtPlayer()
+                player.loseLife()
+                REMOVE zombie from ArrayList
+                SET player symbol at current position
+            END IF
+
+            **IF** NOT player.isAlive()
+                BREAK
+            END IF
+        END REPEAT
+
+       counter++
     END REPEAT
+
+Options
+- IF (condition) addZombie()
+- IF (condition) add more spawn locations
 END METHOD
 
-**METHOD _boolean checkIfKilled()**
-    **REPEAT** for each zombie in zombies
-        **IF** the zombie's _killedPlayer()_ method returns true
-            **STOP** the timer
-            **SET** player.isAlive() to `false`
-        END IF
-    END REPEAT
-
-Option: Multiple lives
-- Decrement lives in loop
-- (player.isAlive returns `true` if lives > 0, `false` otherwise)
-
+METHOD addZombie()
+    zombies.add(new Zombie(x, y))
 END METHOD
 
 **METHOD _void finishGame()_**
     **DISPLAY** "Game over" message, then
-    **IF** the player survived foe a long time
+    **IF** the player survived for a long time/number of moves
         **DISPLAY** a congratulatory message along with the time.
     **ELSE**
         **DISPLAY** an insulting message along with the time.
