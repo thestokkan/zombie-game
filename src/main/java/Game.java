@@ -1,4 +1,6 @@
 
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
@@ -9,13 +11,25 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.terminal.Terminal;
 
 public class Game {
-    Terminal terminal;
-    Player player = new Player(2, 30, 10);
-    ArrayList<Zombie> zombies = new ArrayList<>();
+  Player player = new Player(2, 30, 10);
+  ArrayList<Zombie> zombies = new ArrayList<>();
 
-    public Game(Terminal terminal) throws IOException {
-        this.terminal = terminal;
-    }
+  DefaultTerminalFactory d = new DefaultTerminalFactory();
+  Terminal t = d.createTerminal();
+  TerminalPosition currentPosition;
+  TerminalSize terminalSize = t.getTerminalSize();
+
+  public Game() throws IOException {
+  }
+
+  public static void main(String[] args)
+          throws IOException, InterruptedException {
+
+    Game game = new Game();
+    game.setUpGame();
+    game.startPlaying();
+    game.finishGame();
+  }
 
     public void setUpGame() {
         // TODO Set terminal size
@@ -29,28 +43,29 @@ public class Game {
     public void startPlaying() throws InterruptedException, IOException {
         int counter = 0;
         addZombie();
-        while (player.isAlive()) {
-            player.movePlayer(terminal);
-            for (Zombie z : zombies) {
-                z.moveZombie(player.getX(), player.getY());
-                terminal.setCursorPosition(z.getX(),z.getY());
-                terminal.putCharacter(z.getSymbol());
-                if (z.hasCaughtPlayer(z, player.getX(), player.getY())) {
-                    player.loseLife();
-                    zombies.remove(z);
-                    terminal.setCursorPosition(player.getX(), player.getY());
-                    terminal.putString(player.getMarker());
+        while (true) {
+            player.movePlayer(t);
+          for (Zombie z : zombies) {
+            z.moveZombie(player.getX(), player.getY());
+            t.setCursorPosition(z.getX(),z.getY());
+            t.putCharacter(z.getSymbol());
+            if (z.hasCaughtPlayer(z, player.getX(), player.getY())) {
+              player.loseLife();
+              zombies.remove(z);
+              if (zombies == null) addZombie();
+              t.setCursorPosition(player.getX(), player.getY());
+                    t.putCharacter(player.getMarker());
                 }
                 if (!player.isAlive()) {
-                    terminal.close();
+                    break;
                 }
-            }
             counter++;
+          }
         }
     } // end startPlaying
 
 
-  public void finishGame(Terminal t) throws IOException, InterruptedException {
+  public void finishGame() throws IOException, InterruptedException {
     t.clearScreen();;
     t.setCursorPosition(t.getTerminalSize().getRows() / 2, t.getTerminalSize().getColumns() / 2);
     t.enableSGR(SGR.BLINK);
