@@ -21,10 +21,7 @@ public class Zombie {
     return y;
   }
 
-  // - Get player position -> send player position through moveZombie method
-  // - Calculate where(in what direction) to move
-  // - Move Zombie
-
+//calculates where to move zombie
   public void moveZombie(int playerX, int playerY) {
     int distanceX = x - playerX;
     int distanceY = y - playerY;
