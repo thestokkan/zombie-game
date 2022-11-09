@@ -94,23 +94,31 @@ public class Game {
     } // end startPlaying
 
 
-  public void finishGame() throws IOException, InterruptedException {
-    t.clearScreen();;
-    t.setCursorPosition(t.getTerminalSize().getRows() / 2, t.getTerminalSize().getColumns() / 2);
-    t.enableSGR(SGR.BLINK);
-    t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
-    t.putString("GAME OVER!");
-    t.flush();
-    Thread.sleep(2000);
-    t.clearScreen();
-    t.disableSGR(SGR.BLINK);
-    t.setCursorPosition(t.getTerminalSize().getRows() / 2, t.getTerminalSize().getColumns() / 2);
-    int numMoves = 1;
-    if (numMoves > 10){
-      t.putString("WELL DONE, YOU MANAGED " + numMoves + " MOVES!");
-    } else {
-      t.putString("YOU'RE REALLY BAD AT THIS GAME!");
-    }
-  } // end finishGame
+    public void finishGame() throws IOException, InterruptedException {
+        t.clearScreen();
+        t.setCursorPosition(t.getTerminalSize().getRows() / 2, t.getTerminalSize().getColumns() / 2);
+        t.enableSGR(SGR.BLINK);
+        t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
+        t.putString("GAME OVER!");
+        t.flush();
+        Thread.sleep(2000);
+        t.clearScreen();
+        t.disableSGR(SGR.BLINK);
+        t.setCursorPosition(t.getTerminalSize().getRows() / 2, t.getTerminalSize().getColumns() / 2);
+        if (moves > 20) {
+            t.putString("WELL DONE, YOU MANAGED " + moves + " MOVES!");
+        } else {
+            t.putString("You only got " + moves + " steps...\nYOU'RE REALLY BAD AT THIS GAME!");
+        }
+    } // end finishGame
 
+    public void showStats(int moves) throws IOException, InterruptedException {
+        t.setCursorPosition(1,1);
+        t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
+        t.putString("Lives: " + player.getLives());
+        t.setCursorPosition(1,10);
+        t.putString(("No. Of Moves: " + moves));
+        t.flush();
+
+    }
 } // end class
