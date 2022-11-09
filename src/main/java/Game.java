@@ -85,6 +85,7 @@ public class Game {
                     if (zombies.isEmpty()) addZombie();
                     t.setCursorPosition(player.getX(), player.getY());
                     t.putString(player.getMarker());
+                    break;
                 }
                 if (!player.isAlive()) {
                     break;
