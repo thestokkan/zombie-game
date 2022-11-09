@@ -39,6 +39,10 @@ public class Zombie {
     } else{
       y = distanceY>=0?y-1:y+1;
     }
+    //Add random movement to separate double trouble
+    if ((Math.random()*100>85)){
+      y+=1;
+    }
   }
   public boolean hasCaughtPlayer(Zombie zombie, int playerX, int playerY){
     if (x ==playerX && y == playerY){
