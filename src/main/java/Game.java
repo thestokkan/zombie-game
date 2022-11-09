@@ -46,6 +46,8 @@ public class Game {
         while (true) {
             player.movePlayer(t);
           for (Zombie z : zombies) {
+            t.setCursorPosition(z.getX(),z.getY());
+            t.putCharacter(' ');
             z.moveZombie(player.getX(), player.getY());
             t.setCursorPosition(z.getX(),z.getY());
             t.putCharacter(z.getSymbol());
