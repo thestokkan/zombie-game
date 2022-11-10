@@ -94,6 +94,10 @@ public class Game {
         t.putString(z.getSymbol());
 
         if (z.hasCaughtPlayer(z, player.getX(), player.getY())) {
+          t.enableSGR(SGR.BOLD);
+          t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
+          t.setCursorPosition(player.getX(), player.getY());
+          t.putString(player.getMarkerLostLife());
           player.loseLife();
           zombies.remove(z);
 
