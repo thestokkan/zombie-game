@@ -1,5 +1,6 @@
 public class Zombie {
-  private final String symbol = "Z";
+
+  private final String symbol = "🧟‍";
   private int x;
   private int y;
 

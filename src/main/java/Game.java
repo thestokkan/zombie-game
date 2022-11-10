@@ -94,6 +94,7 @@ public class Game {
         t.putCharacter(' ');
         z.moveZombie(player.getX(), player.getY());
         t.setCursorPosition(z.getX(), z.getY());
+
         t.setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
         t.putString(z.getSymbol());
         t.setForegroundColor(TextColor.ANSI.WHITE);
@@ -105,7 +106,13 @@ public class Game {
           if (zombies.isEmpty()) addZombie();
 
           t.setCursorPosition(player.getX(), player.getY());
-          t.putString(player.getMarker());
+          if (player.isAlive()) {
+            t.putString(player.getMarkerLostLife());
+          } else {
+            t.putString(player.getMarkerDead());
+          }
+          t.flush();
+          Thread.sleep(2000);
           break;
         }
 
