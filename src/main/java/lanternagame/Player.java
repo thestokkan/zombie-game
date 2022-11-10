@@ -36,32 +36,16 @@ public class Player {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public void setPrevX(int x) {
         this.prevX = x;
-    }
-
-    public int getPrevX() {
-        return prevX;
     }
 
     public int getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public void setPrevY(int y) {
         this.prevY = y;
-    }
-
-    public int getPrevY() {
-        return prevY;
     }
 
     public String getMarkerLostLife() {
@@ -90,21 +74,11 @@ public class Player {
     Character c = keyStroke.getCharacter();
 
         switch (type) {
-            case ArrowUp:
-              y=(y<=0)? 0: y-1;
-              break;
-            case ArrowDown:
-              y = (y>=23)? 23 : y + 1;
-              break;
-            case ArrowLeft:
-              x= (x<=0)? 0 : x-1;
-              break;
-            case ArrowRight:
-              x= (x>=78)? 78 : x+1;
-              break;
+            case ArrowUp -> y = (y <= 0) ? 0 : y - 1;
+            case ArrowDown -> y = (y >= 23) ? 23 : y + 1;
+            case ArrowLeft -> x = (x <= 0) ? 0 : x - 1;
+            case ArrowRight -> x = (x >= 78) ? 78 : x + 1;
         }
-              System.out.println("Y = "+ y);
-              System.out.println("X = "+ x);
         t.setCursorPosition(prevX, prevY);
         t.putCharacter(' ');
         t.flush();
