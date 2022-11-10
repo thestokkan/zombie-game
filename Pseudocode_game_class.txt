@@ -1,8 +1,8 @@
 # Zombieland (game class)
 ## Variable declarations
 **DECLARE** and initialize a timer.
-**DECLARE** and instantiate Player object.
-**DECLARE** ArrayList<Zombie> zombies to hold Zombie objects.
+**DECLARE** and instantiate lanternagame.Player object.
+**DECLARE** ArrayList<lanternagame.Zombie> zombies to hold lanternagame.Zombie objects.
 
 ## Method declarations
 **DECLARE** a _setUpGame()_ method to instantiate zombie objects with 
@@ -20,12 +20,12 @@ performance.
 **METHOD: _void setUpGame()_**
     **SET** terminal size
     **CALL** mobs.getZombieList() to get ArrayList of zombies
-    **ADD** Zombie objects to _zombies_ (ArrayList)
+    **ADD** lanternagame.Zombie objects to _zombies_ (ArrayList)
 
 Options:
 - Choose/increase difficulty level
     - Number of zombies
-    - Zombie speed (constant for weighting)
+    - lanternagame.Zombie speed (constant for weighting)
     - method can take parameters or ask user for input
 - Add obstacles
 
@@ -61,11 +61,11 @@ Options
 END METHOD
 
 METHOD addZombie()
-    zombies.add(new Zombie(x, y))
+    zombies.add(new lanternagame.Zombie(x, y))
 END METHOD
 
 **METHOD _void finishGame()_**
-    **DISPLAY** "Game over" message, then
+    **DISPLAY** "lanternagame.Game over" message, then
     **IF** the player survived for a long time/number of moves
         **DISPLAY** a congratulatory message along with the time.
     **ELSE**
