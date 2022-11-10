@@ -24,7 +24,9 @@ public class Player {
     public int getLives() {
         return lives;
     }
-
+    public void setLives(int lives){
+        this.lives = lives;
+    }
     public int getX() {
         return x;
     }
