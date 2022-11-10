@@ -97,7 +97,6 @@ public class Game {
           t.enableSGR(SGR.BOLD);
           t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
           t.setCursorPosition(player.getX(), player.getY());
-          t.putString(player.getMarkerLostLife());
           player.loseLife();
           zombies.remove(z);
           if (player.isAlive()) {
@@ -115,11 +114,6 @@ public class Game {
           break;
         }
 
-        //TODO stop program if window is closed...should probably not be here
-        // ->eventlistener?
-        if (t == null) {
-          System.out.println("Exiting....");
-        }
       }
       if (moves % 30 == 0) addZombie();
       if (moves % 50 == 0) newSpawnField();
