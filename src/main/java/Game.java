@@ -94,7 +94,7 @@ public class Game {
         t.putCharacter(' ');
         z.moveZombie(player.getX(), player.getY());
         t.setCursorPosition(z.getX(), z.getY());
-        t.putCharacter(z.getSymbol());
+        t.putString(z.getSymbol());
 
         if (z.hasCaughtPlayer(z, player.getX(), player.getY())) {
           player.loseLife();
