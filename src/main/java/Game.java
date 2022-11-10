@@ -77,18 +77,15 @@ public class Game {
   }
 
   public void startPlaying() throws InterruptedException, IOException {
-    int countTo50 = 0;
+
     while (player.isAlive()) {
-      //TODO hacky way to let player move twice
       player.movePlayer(t);
       moves++;
       showStats(moves);
       player.movePlayer(t);
       moves++;
       showStats(moves);
-
       showSpawnField();
-
       for (Zombie z : zombies) {
         t.setCursorPosition(z.getX(), z.getY());
         t.putCharacter(' ');
