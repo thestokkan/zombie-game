@@ -9,7 +9,7 @@
 - Create a simple single player game.
 - Utilize project management/cooperation/coding skills learnt so far.
 
-## Game Description
+## lanternagame.Game Description
 
 - A player uses the arrow keys to move around the board. 
 - Avoid the zombies for as long as possible.
@@ -27,4 +27,3 @@
 - It is very hard to keep project members in  their 'own lane'.
 - The better the encapsulation the easier it is to cooperate.
 - Good planning is essential (and hard).
-

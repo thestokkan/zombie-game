@@ -1,8 +1,13 @@
+package lanternagame;
+
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import javafx.application.Platform;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,6 +15,8 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Game {
+  Media ambianceMusic;
+
   Player player = new Player(2, 30, 10);
   ArrayList<Zombie> zombies = new ArrayList<>();
   ArrayList<int[]> fieldsList = new ArrayList<>();
@@ -25,6 +32,7 @@ public class Game {
 
   public static void main(String[] args)
           throws IOException, InterruptedException {
+
     Game game = new Game();
 //    game.startScreen();
     game.setUpGame();
@@ -33,10 +41,20 @@ public class Game {
   }
 
   public void setUpGame() throws IOException, InterruptedException {
+
+    Platform.startup(() ->
+                     {
+                       ambianceMusic = new Media(getClass().getResource("/dead" +
+                                                                        "-walking-mp3-14594.mp3").toExternalForm());
+                       MediaPlayer playBackgroundMusic =
+                               new MediaPlayer(ambianceMusic);
+                       playBackgroundMusic.setCycleCount(20);
+                       playBackgroundMusic.play();
+                     });
+
     t.setCursorVisible(false);
 
     generateFields();
-
     newSpawnField();
     addZombie();
     showStats(moves);
@@ -181,6 +199,8 @@ public class Game {
       t.putString("YOU'RE REALLY BAD AT THIS GAME!");
     }
     t.flush();
+
+    Platform.exit();
   }
 
   public void showStats(int moves) throws IOException, InterruptedException {
