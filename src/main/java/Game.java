@@ -77,18 +77,15 @@ public class Game {
   }
 
   public void startPlaying() throws InterruptedException, IOException {
-    int countTo50 = 0;
+
     while (player.isAlive()) {
-      //TODO hacky way to let player move twice
       player.movePlayer(t);
       moves++;
       showStats(moves);
       player.movePlayer(t);
       moves++;
       showStats(moves);
-
       showSpawnField();
-
       for (Zombie z : zombies) {
         t.setCursorPosition(z.getX(), z.getY());
         t.putCharacter(' ');
@@ -100,35 +97,26 @@ public class Game {
         t.setForegroundColor(TextColor.ANSI.WHITE);
 
         if (z.hasCaughtPlayer(z, player.getX(), player.getY())) {
+          t.enableSGR(SGR.BOLD);
+          t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
+          t.setCursorPosition(player.getX(), player.getY());
           player.loseLife();
           zombies.remove(z);
-
-          if (zombies.isEmpty()) addZombie();
-
-          t.setCursorPosition(player.getX(), player.getY());
           if (player.isAlive()) {
             t.putString(player.getMarkerLostLife());
           } else {
             t.putString(player.getMarkerDead());
           }
           t.flush();
-          Thread.sleep(2000);
+          Thread.sleep(1000);
+          if (zombies.isEmpty()) addZombie();
           break;
-        }
-
-        if (!player.isAlive()) {
-          break;
-        }
-
-        //TODO stop program if window is closed...should probably not be here
-        // ->eventlistener?
-        if (t == null) {
-          System.out.println("Exiting....");
         }
       }
       if (moves % 30 == 0) addZombie();
       if (moves % 50 == 0) newSpawnField();
     }
+    Thread.sleep(1000);
   } // end startPlaying
 
   public void startScreen() throws IOException, InterruptedException {
