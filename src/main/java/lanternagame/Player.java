@@ -46,26 +46,24 @@ public class Player {
     }
 
     public String getMarkerDead() {
-        return  "💀";
+        return "💀";
     }
 
     public void movePlayer(Terminal t) throws InterruptedException, IOException {
         KeyStroke keyStroke;
-
-    t.setCursorPosition(getX(), getY());
+        t.setCursorPosition(getX(), getY());
         String marker = "\uD83D\uDE03";
         t.putString(marker);
-    t.flush();
-    setPrevX(getX());
-    setPrevY(getY());
+        t.flush();
+        setPrevX(getX());
+        setPrevY(getY());
 
-    do {
-      Thread.sleep(5);
-      keyStroke = t.pollInput();
-    } while (keyStroke == null);
+        do {
+            Thread.sleep(5);
+            keyStroke = t.pollInput();
+        } while (keyStroke == null);
 
-    KeyType type = keyStroke.getKeyType();
-
+        KeyType type = keyStroke.getKeyType();
         switch (type) {
             case ArrowUp -> y = (y <= 0) ? 0 : y - 1;
             case ArrowDown -> y = (y >= 23) ? 23 : y + 1;
