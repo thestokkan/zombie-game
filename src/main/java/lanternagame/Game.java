@@ -6,6 +6,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import javafx.application.Platform;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -15,7 +16,16 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Game {
+  Media openingMusic;
+  MediaPlayer playOpeningMusic;
   Media ambianceMusic;
+  MediaPlayer playBackgroundMusic;
+  Media gameOverSound;
+  MediaPlayer playGameOverSound;
+  Media dyingSound;
+  MediaPlayer playDyingSound;
+  Media zombieSound;
+  MediaPlayer playZombieSound;
 
   Player player = new Player(2, 30, 10);
   ArrayList<Zombie> zombies = new ArrayList<>();
@@ -36,24 +46,39 @@ public class Game {
           throws IOException, InterruptedException {
 
     Game game = new Game();
+    game.playMusic();
     game.startScreen();
     game.setUpGame();
     game.startPlaying();
     game.finishGame();
   }
 
+  public void playMusic() {
+    Platform.startup(() -> {});
+
+    openingMusic = new Media(getClass().getResource(
+            "/futuristic-heartbeat-60-bpm-7074.mp3").toExternalForm());
+    playOpeningMusic = new MediaPlayer(openingMusic);
+    playOpeningMusic.setCycleCount(2);
+
+    ambianceMusic = new Media(getClass().getResource("/dead" +
+                                                     "-walking-mp3-14594.mp3").toExternalForm());
+    playBackgroundMusic = new MediaPlayer(ambianceMusic);
+    playBackgroundMusic.setCycleCount(20);
+
+    gameOverSound = new Media(getClass().getResource("/verloren-89595.mp3").toExternalForm());
+    playGameOverSound = new MediaPlayer(gameOverSound);
+
+    dyingSound =
+            new Media(getClass().getResource("/man-dying-89565.mp3").toExternalForm());
+    playDyingSound = new MediaPlayer(dyingSound);
+
+    zombieSound =
+            new Media(getClass().getResource("/Zombie-Biting-A1-www.fesliyanstudios.com.mp3").toExternalForm());
+    playZombieSound = new MediaPlayer(zombieSound);
+  }
+
   public void setUpGame() throws IOException, InterruptedException {
-
-    Platform.startup(() ->
-                     {
-                       ambianceMusic = new Media(getClass().getResource("/dead" +
-                                                                        "-walking-mp3-14594.mp3").toExternalForm());
-                       MediaPlayer playBackgroundMusic =
-                               new MediaPlayer(ambianceMusic);
-                       playBackgroundMusic.setCycleCount(20);
-                       playBackgroundMusic.play();
-                     });
-
     t.setCursorVisible(false);
 
     generateFields();
@@ -95,6 +120,7 @@ public class Game {
   }
 
   public void startPlaying() throws InterruptedException, IOException {
+    playBackgroundMusic.play();
 
     while (player.isAlive()) {
       player.movePlayer(t);
@@ -119,14 +145,16 @@ public class Game {
           t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
           t.setCursorPosition(player.getX(), player.getY());
           player.loseLife();
+          playZombieSound.play();
           zombies.remove(z);
           if (player.isAlive()) {
             t.putString(player.getMarkerLostLife());
           } else {
             t.putString(player.getMarkerDead());
+            playDyingSound.play();
           }
           t.flush();
-          Thread.sleep(1000);
+          Thread.sleep(1500);
           if (zombies.isEmpty()) addZombie();
           break;
         }
@@ -134,10 +162,14 @@ public class Game {
       if (moves % 30 == 0) addZombie();
       if (moves % 50 == 0) newSpawnField();
     }
-    Thread.sleep(1000);
+    Thread.sleep(500);
+
+    playBackgroundMusic.stop();
   } // end startPlaying
 
   public void startScreen() throws IOException, InterruptedException {
+    playOpeningMusic.play();
+
     t.setForegroundColor(TextColor.ANSI.BLUE_BRIGHT);
     char[] teamNameString = new char[]{'V', ' ', 'O', ' ', 'I', ' ', 'D'};
     t.setCursorPosition((xMax/2) - (teamNameString.length/2), yMax/2);
@@ -162,9 +194,10 @@ public class Game {
     t.flush();
     Thread.sleep(3000);
     t.clearScreen();
-  }
+  } // end startScreen
 
   public void finishGame() throws IOException, InterruptedException {
+    playGameOverSound.play();
     t.clearScreen();
     t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
     char[] gameOverArr =
@@ -197,7 +230,6 @@ public class Game {
       t.putString(youBad);
     }
     t.flush();
-
     Platform.exit();
   }
 
