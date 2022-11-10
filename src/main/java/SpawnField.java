@@ -1,5 +1,5 @@
 public class SpawnField {
-    private boolean isActive;
+    private final String marker = "🚪";
     private final int x;
     private final int y;
 
@@ -8,12 +8,8 @@ public class SpawnField {
         this.y = field[1];
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive() {
-        isActive = true;
+    public String getMarker() {
+        return marker;
     }
 
     public int getX() {

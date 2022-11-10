@@ -51,7 +51,7 @@ public class Game {
   public void showSpawnField() throws IOException {
     for (SpawnField field : spawnFields) {
       t.setCursorPosition(field.getX(), field.getY());
-      t.putString("O");
+      t.putString(field.getMarker());
     }
   }
 
