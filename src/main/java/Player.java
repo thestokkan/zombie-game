@@ -53,22 +53,32 @@ public class Player {
     KeyType type = keyStroke.getKeyType();
     Character c = keyStroke.getCharacter();
 
-    switch (type) {
-      case ArrowUp:
-        setY(y - 2);
-        setX(x);
-      case ArrowDown:
-        setY(y + 1);
-        setX(x + 1);
-      case ArrowLeft:
-        setX(x - 2);
-      case ArrowRight:
-        setX(x + 1);
+        switch (type) {
+            case ArrowUp:
+              if (!(y<=0)){
+                    y -= 1;
+              } else{
+                y = 0;
+              }
+              break;
+
+            case ArrowDown:
+              y = (y>=23)? 23 : y + 1;
+              break;
+            case ArrowLeft:
+              x= (x<0)? 0 : x-1;
+              break;
+            case ArrowRight:
+              x= (x>=80)? 80 : x+1;
+              break;
+
+        }
+              System.out.println("Y = "+ y);
+              System.out.println("X = "+ x);
+        t.setCursorPosition(x, y);
+        t.putString(marker);
+        t.flush();
     }
-    t.setCursorPosition(prevX, prevY);
-    t.putCharacter(' ');
-    t.flush();
-  }
 
   public boolean isAlive() {
     return lives > 0;
