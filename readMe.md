@@ -7,9 +7,14 @@
 <img src="https://github.com/Zohla/screenshots/blob/main/Zombieland_GameOver.png" alt="screenshot of game over screen" width="600px">
 
 
-## Description
+## Game Description
+**A simple game made as a collabaration project at Brights.**
 
-A simple game made as a collabaration project at Brights. 
+- A player uses the arrow keys to move around the board. 
+- Avoid the zombies for as long as possible.
+- A player loses a life if they are caught by a zombie.
+- The game is over when all lives are lost.
+
 
 ## Built With
 
