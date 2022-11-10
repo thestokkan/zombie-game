@@ -10,7 +10,13 @@ public class Zombie {
     this.x = spawnField.getX();
     this.y = spawnField.getY();
   }
+//Added for testing purposes//
+  public Zombie(int x, int y) {
+    this.x = x;
+    this.y = y;
 
+  }
+////////////////////////////
   public int getX() {
     return x;
   }
