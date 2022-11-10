@@ -71,7 +71,6 @@ public class Player {
     } while (keyStroke == null);
 
     KeyType type = keyStroke.getKeyType();
-    Character c = keyStroke.getCharacter();
 
         switch (type) {
             case ArrowUp -> y = (y <= 0) ? 0 : y - 1;
