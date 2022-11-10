@@ -7,9 +7,6 @@ import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
 
 public class Player {
-    private final String marker = "\uD83D\uDE03";
-    private final String markerLostLife = "😵";
-    private final String markerDead = "💀";
     private int lives;
     private int x;
     private int y;
@@ -22,10 +19,6 @@ public class Player {
         this.y = y;
         this.prevX = x;
         this.prevY = y;
-    }
-
-    public String getMarker() {
-        return marker;
     }
 
     public int getLives() {
@@ -49,18 +42,20 @@ public class Player {
     }
 
     public String getMarkerLostLife() {
-        return markerLostLife;
+        return "😵";
     }
 
     public String getMarkerDead() {
-        return markerDead;
+
+        return  "💀";
     }
 
     public void movePlayer(Terminal t) throws InterruptedException, IOException {
         KeyStroke keyStroke;
 
     t.setCursorPosition(getX(), getY());
-    t.putString(marker);
+        String marker = "\uD83D\uDE03";
+        t.putString(marker);
     t.flush();
     setPrevX(getX());
     setPrevY(getY());
