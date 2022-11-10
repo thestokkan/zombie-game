@@ -46,7 +46,6 @@ public class Player {
     }
 
     public String getMarkerDead() {
-
         return  "💀";
     }
 
