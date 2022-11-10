@@ -56,6 +56,7 @@ public class Game {
                 game.startPlaying();
                 game.finishGame();
                 playAgain = game.playAgain();
+                game.player.setLives(2);
             }
             Platform.exit();
         }
@@ -301,6 +302,7 @@ public class Game {
     } while (keyStroke == null || keyStroke.getKeyType() != KeyType.Character);
     Character c = keyStroke.getCharacter();
     if (c == 'y'){
+        t.clearScreen();
       return true;
     } else {
 //      Platform.exit();
