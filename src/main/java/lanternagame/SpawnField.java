@@ -1,3 +1,5 @@
+package lanternagame;
+
 public class SpawnField {
     private final String marker = "🚪";
     private final int x;

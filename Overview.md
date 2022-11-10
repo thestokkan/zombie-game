@@ -10,11 +10,11 @@
   - Makes player and zombie objects
   - Set up game
   - Gets user input
-  - Game loop: play until game over or quit
+  - lanternagame.Game loop: play until game over or quit
     - Check if player is killed
     - Finish game
-- **Player**
-  - Player class
+- **lanternagame.Player**
+  - lanternagame.Player class
   - fields
     - symbol
     - lives
@@ -24,8 +24,8 @@
     - move
       - controlled by player using arrow keys
     - getters and setters
-- **Zombie**
-  - Zombie class
+- **lanternagame.Zombie**
+  - lanternagame.Zombie class
   - fields
     - symbol
     - x

@@ -1,3 +1,5 @@
+package lanternagame;
+
 public class Zombie {
 
   private final String symbol = "🧟‍";
