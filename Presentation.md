@@ -21,9 +21,14 @@
 - Project planned and logic organised using pseudocode.
 - Code maintained through Git/GitHub.
 - GitHub project used as a kanban board to organise tasks.
+- Having a highly organised Project Manager is gold!
 
 ## Lessons Learnt
 
 - It is very hard to keep project members in  their 'own lane'.
 - The better the encapsulation the easier it is to cooperate.
 - Good planning is essential (and hard).
+- Good Git skills and practices are really useful.
+    (And don't forget to switch branches!)
+- Start small with a Minimum Viable Product and build from there.
+    It's really easy to get carried away.
