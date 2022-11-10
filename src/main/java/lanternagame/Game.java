@@ -3,6 +3,8 @@ package lanternagame;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import javafx.application.Platform;
@@ -49,10 +51,16 @@ public class Game {
 
     Game game = new Game();
     game.playMusic();
-//    game.startScreen();
-    game.setUpGame();
-    game.startPlaying();
-    game.finishGame();
+    game.startScreen();
+
+    boolean playAgain = true;
+    while (playAgain) {
+      game.setUpGame();
+      game.startPlaying();
+      game.finishGame();
+      playAgain = game.playAgain();
+    }
+    Platform.exit();
   }
 
   public void playMusic() {
@@ -241,7 +249,30 @@ public class Game {
       t.putString(youBad);
     }
     t.flush();
-    Platform.exit();
+    Thread.sleep(2500);
+  }
+
+  public boolean playAgain() throws IOException, InterruptedException {
+    t.clearScreen();
+    String playAgainString = "WOULD YOU LIKE TO PLAY AGAIN.";
+    String yesNo = "y / n ?";
+    t.setCursorPosition((xMax/2) - (playAgainString.length()/2), yMax/2);
+    t.putString(playAgainString);
+    t.setCursorPosition((xMax/2) - (yesNo.length()/2), (yMax/2) + 1);
+    t.putString(yesNo);
+    t.flush();
+    KeyStroke keyStroke;
+    do {
+      Thread.sleep(5);
+      keyStroke = t.pollInput();
+    } while (keyStroke == null || keyStroke.getKeyType() != KeyType.Character);
+    Character c = keyStroke.getCharacter();
+    if (c == 'y'){
+      return true;
+    } else {
+//      Platform.exit();
+      return false;
+    }
   }
 
   public void showStats(int moves) throws IOException, InterruptedException {
