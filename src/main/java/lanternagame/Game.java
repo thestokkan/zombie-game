@@ -1,15 +1,12 @@
 package lanternagame;
 
 import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import javafx.application.Platform;
-import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,11 +32,11 @@ public class Game {
   ArrayList<SpawnField> spawnFields = new ArrayList<>();
   int moves = 0;
 
-  private DefaultTerminalFactory d = new DefaultTerminalFactory();
-  private Terminal t = d.createTerminal();
-  private TerminalPosition currentPosition;
-  private int xMax = t.getTerminalSize().getColumns();
-  private int yMax = t.getTerminalSize().getRows();
+  private final DefaultTerminalFactory d = new DefaultTerminalFactory();
+  private final Terminal t = d.createTerminal();
+
+  private final int xMax = t.getTerminalSize().getColumns();
+  private final int yMax = t.getTerminalSize().getRows();
 
   public Game() throws IOException {
   }
@@ -84,7 +81,7 @@ public class Game {
     playDoorSound = new MediaPlayer(doorSound);
   }
 
-  public void setUpGame() throws IOException, InterruptedException {
+  public void setUpGame() throws IOException {
     t.setCursorVisible(false);
 
     generateFields();
@@ -93,7 +90,7 @@ public class Game {
     showStats(moves);
   }
 
-  private void newSpawnField() throws IOException {
+  private void newSpawnField() {
     if (!fieldsList.isEmpty()) {
       spawnFields.add(new SpawnField(fieldsList.remove(fieldsList.size() - 1)));
     }
@@ -106,7 +103,7 @@ public class Game {
     }
   }
 
-  private void generateFields() throws IOException {
+  private void generateFields() {
 
     fieldsList.addAll(Arrays.asList(new int[][]{
             {2, 2},
@@ -244,7 +241,7 @@ public class Game {
     Platform.exit();
   }
 
-  public void showStats(int moves) throws IOException, InterruptedException {
+  public void showStats(int moves) throws IOException {
     String hearts = player.getLives() + "";
 
     t.setCursorPosition(2, 1);
