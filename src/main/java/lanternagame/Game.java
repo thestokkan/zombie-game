@@ -2,6 +2,8 @@ package lanternagame;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import javafx.application.Platform;
@@ -39,19 +41,24 @@ public class Game {
     private final int xMax = t.getTerminalSize().getColumns();
     private final int yMax = t.getTerminalSize().getRows();
 
-    public Game() throws IOException {
+    public Game() throws IOException, InterruptedException {
     }
 
-    public static void main(String[] args)
-            throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
-        Game game = new Game();
-        game.playMusic();
-//    game.startScreen();
-        game.setUpGame();
-        game.startPlaying();
-        game.finishGame();
-    }
+            Game game = new Game();
+            game.playMusic();
+            game.startScreen();
+
+            boolean playAgain = true;
+            while (playAgain) {
+                game.setUpGame();
+                game.startPlaying();
+                game.finishGame();
+                playAgain = game.playAgain();
+            }
+            Platform.exit();
+        }
 
     public void playMusic() {
         Platform.startup(() -> {
@@ -224,43 +231,6 @@ public class Game {
         t.clearScreen();
     } // end startScreen
 
-    public void finishGame() throws IOException, InterruptedException {
-        playGameOverSound.play();
-        t.clearScreen();
-        t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
-        char[] gameOverArr =
-                new char[]{'G', ' ', 'A', ' ', 'M', ' ', 'E', ' ', ' ', 'O', ' ',
-                        'V', ' ', 'E', ' ', 'R', ' ', '!'};
-        t.setCursorPosition((xMax / 2) - (gameOverArr.length / 2), yMax / 2);
-        for (char c : gameOverArr) {
-            t.putCharacter(c);
-            Thread.sleep(200);
-            t.flush();
-        }
-        t.enableSGR(SGR.BLINK);
-        t.clearScreen();
-        t.setCursorPosition((xMax / 2) - (gameOverArr.length / 2), yMax / 2);
-        t.putString("G A M E  O V E R !");
-        t.flush();
-        Thread.sleep(3000);
-        t.disableSGR(SGR.BLINK);
-        t.setForegroundColor(TextColor.ANSI.YELLOW_BRIGHT);
-        if (moves > 50) {
-            String wellDone = "WELL DONE, YOU MANAGED " + moves + " MOVES!";
-            t.setCursorPosition((xMax / 2) - (wellDone.length() / 2), (yMax / 2) + 2);
-            t.putString(wellDone);
-        } else {
-            String youOnly = "YOU ONLY MANAGED " + moves + " MOVES";
-            String youBad = "THE ZOMBIES ARE STILL HUNGRY. HAVE ANOTHER GO";
-            t.setCursorPosition((xMax / 2) - (youOnly.length() / 2), (yMax / 2) + 2);
-            t.putString(youOnly);
-            t.setCursorPosition((xMax / 2) - (youBad.length() / 2), (yMax / 2) + 3);
-            t.putString(youBad);
-        }
-        t.flush();
-        Platform.exit();
-    }
-
     public void showStats(int moves) throws IOException {
         String hearts = player.getLives() + "";
 
@@ -276,5 +246,67 @@ public class Game {
         t.putString(moves + "");
         t.setForegroundColor(TextColor.ANSI.WHITE);
     }
+
+
+  public void finishGame() throws IOException, InterruptedException {
+    playGameOverSound.play();
+    t.clearScreen();
+    t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
+    char[] gameOverArr =
+            new char[]{'G', ' ', 'A', ' ', 'M', ' ', 'E', ' ', ' ', 'O', ' ',
+                       'V', ' ', 'E', ' ', 'R', ' ', '!'};
+    t.setCursorPosition((xMax/2) - (gameOverArr.length/2), yMax/2);
+    for (char c : gameOverArr) {
+      t.putCharacter(c);
+      Thread.sleep(200);
+      t.flush();
+    }
+    t.enableSGR(SGR.BLINK);
+    t.clearScreen();
+    t.setCursorPosition((xMax/2) - (gameOverArr.length/2), yMax/2);
+    t.putString("G A M E  O V E R !");
+    t.flush();
+    Thread.sleep(3000);
+    t.disableSGR(SGR.BLINK);
+    t.setForegroundColor(TextColor.ANSI.YELLOW_BRIGHT);
+    if (moves > 50) {
+      String wellDone = "WELL DONE, YOU MANAGED " + moves + " MOVES!";
+      t.setCursorPosition((xMax/2) - (wellDone.length()/2), (yMax/2) + 2);
+      t.putString(wellDone);
+    } else {
+      String youOnly = "YOU ONLY MANAGED " + moves + " MOVES";
+      String youBad = "THE ZOMBIES ARE STILL HUNGRY. HAVE ANOTHER GO";
+      t.setCursorPosition((xMax/2) - (youOnly.length()/2), (yMax/2) + 2);
+      t.putString(youOnly);
+      t.setCursorPosition((xMax/2) - (youBad.length()/2), (yMax/2) + 3);
+      t.putString(youBad);
+    }
+    t.flush();
+    Thread.sleep(2500);
+  }
+
+  public boolean playAgain() throws IOException, InterruptedException {
+    t.clearScreen();
+    String playAgainString = "WOULD YOU LIKE TO PLAY AGAIN.";
+    String yesNo = "y / n ?";
+    t.setCursorPosition((xMax/2) - (playAgainString.length()/2), yMax/2);
+    t.putString(playAgainString);
+    t.setCursorPosition((xMax/2) - (yesNo.length()/2), (yMax/2) + 1);
+    t.putString(yesNo);
+    t.flush();
+    KeyStroke keyStroke;
+    do {
+      Thread.sleep(5);
+      keyStroke = t.pollInput();
+    } while (keyStroke == null || keyStroke.getKeyType() != KeyType.Character);
+    Character c = keyStroke.getCharacter();
+    if (c == 'y'){
+      return true;
+    } else {
+//      Platform.exit();
+      return false;
+    }
+  }
+
 
 } // end class
