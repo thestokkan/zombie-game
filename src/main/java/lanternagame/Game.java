@@ -127,6 +127,7 @@ public class Game {
 
   public void startPlaying() throws InterruptedException, IOException {
     playBackgroundMusic.play();
+    playDoorSound.play();
 
     while (player.isAlive()) {
       player.movePlayer(t);
@@ -168,6 +169,7 @@ public class Game {
       if (moves % 30 == 0) addZombie();
       if (moves % 50 == 0) {
         newSpawnField();
+        playDoorSound.stop();
         playDoorSound.play();
       }
     }
