@@ -22,10 +22,10 @@ class ZombieTest {
 
     @Test
     void hasCaughtPlayer() {
-        assertTrue(z.hasCaughtPlayer( z,10,20));
+        assertTrue(z.hasCaughtPlayer(10,20));
     }
     @Test
     void hasNotCaughtPlayer() {
-        assertFalse(z.hasCaughtPlayer( z,9,20));
+        assertFalse(z.hasCaughtPlayer(9,20));
     }
 }

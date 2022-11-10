@@ -114,7 +114,7 @@ public class Game {
         t.putString(z.getSymbol());
         t.setForegroundColor(TextColor.ANSI.WHITE);
 
-        if (z.hasCaughtPlayer(z, player.getX(), player.getY())) {
+        if (z.hasCaughtPlayer(player.getX(), player.getY())) {
           t.enableSGR(SGR.BOLD);
           t.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
           t.setCursorPosition(player.getX(), player.getY());

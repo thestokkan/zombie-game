@@ -2,7 +2,6 @@ package lanternagame;
 
 public class Zombie {
 
-  private final String symbol = "🧟‍";
   private int x;
   private int y;
 
@@ -26,7 +25,7 @@ public class Zombie {
   }
 
   public String getSymbol() {
-    return symbol;
+    return "🧟‍";
   }
 
   //calculates where to move zombie
@@ -48,7 +47,7 @@ public class Zombie {
       y += 1;
     }
   }
-  public boolean hasCaughtPlayer(Zombie zombie, int playerX, int playerY){
+  public boolean hasCaughtPlayer(int playerX, int playerY){
     if (x == playerX && y == playerY){
       return true;
     }
