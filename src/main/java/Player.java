@@ -5,13 +5,14 @@ import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
 
 public class Player {
-  final String marker = "\uD83D\uDE03";
+  private final String marker = "\uD83D\uDE03";
+  private final String markerLostLife = "😵";
+  private final String markerDead = "💀";
   private int lives;
   private int x;
   private int y;
   private int prevX;
   private int prevY;
-
 
   public Player(int lives, int x, int y) {
     this.lives = lives;
@@ -32,7 +33,8 @@ public class Player {
   public void setY(int y) { this.y = y; }
   public void setPrevY(int y) { this.prevY = y; }
   public int getPrevY() { return prevY; }
-
+  public String getMarkerLostLife() { return markerLostLife; }
+  public String getMarkerDead() { return markerDead; }
 
   public void movePlayer(Terminal t) throws InterruptedException, IOException {
     KeyStroke keyStroke;

@@ -103,7 +103,13 @@ public class Game {
           if (zombies.isEmpty()) addZombie();
 
           t.setCursorPosition(player.getX(), player.getY());
-          t.putString(player.getMarker());
+          if (player.isAlive()) {
+            t.putString(player.getMarkerLostLife());
+          } else {
+            t.putString(player.getMarkerDead());
+          }
+          t.flush();
+          Thread.sleep(2000);
           break;
         }
 
