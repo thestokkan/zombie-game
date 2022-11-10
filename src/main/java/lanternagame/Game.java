@@ -26,6 +26,8 @@ public class Game {
   MediaPlayer playDyingSound;
   Media zombieSound;
   MediaPlayer playZombieSound;
+  Media doorSound;
+  MediaPlayer playDoorSound;
 
   Player player = new Player(2, 30, 10);
   ArrayList<Zombie> zombies = new ArrayList<>();
@@ -47,7 +49,7 @@ public class Game {
 
     Game game = new Game();
     game.playMusic();
-    game.startScreen();
+//    game.startScreen();
     game.setUpGame();
     game.startPlaying();
     game.finishGame();
@@ -76,6 +78,10 @@ public class Game {
     zombieSound =
             new Media(getClass().getResource("/Zombie-Biting-A1-www.fesliyanstudios.com.mp3").toExternalForm());
     playZombieSound = new MediaPlayer(zombieSound);
+
+    doorSound =
+            new Media(getClass().getResource("/door-2-6841.mp3").toExternalForm());
+    playDoorSound = new MediaPlayer(doorSound);
   }
 
   public void setUpGame() throws IOException, InterruptedException {
@@ -160,7 +166,10 @@ public class Game {
         }
       }
       if (moves % 30 == 0) addZombie();
-      if (moves % 50 == 0) newSpawnField();
+      if (moves % 50 == 0) {
+        newSpawnField();
+        playDoorSound.play();
+      }
     }
     Thread.sleep(500);
 
