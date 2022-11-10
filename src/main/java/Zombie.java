@@ -1,5 +1,5 @@
 public class Zombie {
-  private final char symbol = 'Z';
+  private final String symbol = "Z";
   private int x;
   private int y;
 
@@ -16,7 +16,7 @@ public class Zombie {
     return y;
   }
 
-  public char getSymbol() {
+  public String getSymbol() {
     return symbol;
   }
 
