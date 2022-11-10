@@ -100,17 +100,14 @@ public class Game {
           t.putString(player.getMarkerLostLife());
           player.loseLife();
           zombies.remove(z);
-
-          if (zombies.isEmpty()) addZombie();
-
-          t.setCursorPosition(player.getX(), player.getY());
           if (player.isAlive()) {
             t.putString(player.getMarkerLostLife());
           } else {
             t.putString(player.getMarkerDead());
           }
           t.flush();
-          Thread.sleep(2000);
+          Thread.sleep(1000);
+          if (zombies.isEmpty()) addZombie();
           break;
         }
 
@@ -127,6 +124,7 @@ public class Game {
       if (moves % 30 == 0) addZombie();
       if (moves % 50 == 0) newSpawnField();
     }
+    Thread.sleep(1000);
   } // end startPlaying
 
   public void startScreen() throws IOException, InterruptedException {
