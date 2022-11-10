@@ -48,9 +48,6 @@ public class Zombie {
     }
   }
   public boolean hasCaughtPlayer(int playerX, int playerY){
-    if (x == playerX && y == playerY){
-      return true;
-    }
-    return false;
+    return (x == playerX && y == playerY);
   }
 }
