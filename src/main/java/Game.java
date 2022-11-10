@@ -109,11 +109,6 @@ public class Game {
           if (zombies.isEmpty()) addZombie();
           break;
         }
-
-        if (!player.isAlive()) {
-          break;
-        }
-
       }
       if (moves % 30 == 0) addZombie();
       if (moves % 50 == 0) newSpawnField();
