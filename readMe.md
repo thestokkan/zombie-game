@@ -18,7 +18,7 @@
 
 ## Built With
 
-Java and the Lanterna library
+Java and the *[Laterna](https://github.com/mabe02/lanterna)* library
 
 ### Installing
 
